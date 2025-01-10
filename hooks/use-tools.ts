@@ -160,7 +160,7 @@ export const useToolsFunctions = () => {
   }
 
   const scrapeWebsite = async ({ url }: { url: string }) => {
-    const apiKey = process.env.FIRECRAWL_API_KEY;
+    const apiKey = process.env.NEXT_PUBLIC_FIRECRAWL_API_KEY;
     try {
       const app = new FirecrawlApp({ apiKey: apiKey });
       const scrapeResult = await app.scrapeUrl(url, { formats: ['markdown', 'html'] }) as ScrapeResponse;
