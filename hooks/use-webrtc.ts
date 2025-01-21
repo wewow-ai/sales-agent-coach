@@ -101,8 +101,14 @@ export default function useWebRTCAudioSession(
     const languageMessage = {
       type: "conversation.item.create",
       item: {
-        type: "text",
-        text: t("languagePrompt"),
+        type: "message",
+        role: "user",
+        content: [
+          {
+            type: "input_text",
+            text: t("languagePrompt"),
+          },
+        ],
       },
     };
     dataChannel.send(JSON.stringify(languageMessage));
