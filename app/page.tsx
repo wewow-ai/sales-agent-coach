@@ -10,6 +10,7 @@ import { StatusDisplay } from "@/components/status"
 import { TokenUsageDisplay } from "@/components/token-usage"
 import { MessageControls } from "@/components/message-controls"
 import { ToolsEducation } from "@/components/tools-education"
+import { TextInput } from "@/components/text-input"
 import { motion } from "framer-motion"
 import { useToolsFunctions } from "@/hooks/use-tools"
 
@@ -24,7 +25,8 @@ const App: React.FC = () => {
     registerFunction,
     handleStartStopClick,
     msgs,
-    conversation
+    conversation,
+    sendTextMessage
   } = useWebRTCAudioSession(voice, tools)
 
   // Get all tools functions
@@ -80,6 +82,10 @@ const App: React.FC = () => {
               transition={{ duration: 0.3 }}
             >
               <MessageControls conversation={conversation} msgs={msgs} />
+              <TextInput 
+                onSubmit={sendTextMessage}
+                disabled={!isSessionActive}
+              />
             </motion.div>
           )}
         </motion.div>
