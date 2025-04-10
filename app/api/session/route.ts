@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+import { promises as fs } from 'fs';
+import path from 'path';
+
 
 export async function POST() {
     try {        
@@ -6,6 +9,8 @@ export async function POST() {
             throw new Error(`OPENAI_API_KEY is not set`);
 
         }
+        const systemPromptPath = path.join(process.cwd(), 'public', 'system_prompt.txt');
+        const systemPrompt = await fs.readFile(systemPromptPath, 'utf8');     
         const response = await fetch("https://api.openai.com/v1/realtime/sessions", {
             method: "POST",
             headers: {
@@ -16,7 +21,7 @@ export async function POST() {
                 model: "gpt-4o-realtime-preview-2024-12-17",
                 voice: "alloy",
                 modalities: ["audio", "text"],
-                instructions:"Start conversation with the user by saying 'Hello, how can I help you today?' Use the available tools when relevant. After executing a tool, you will need to respond (create a subsequent conversation item) to the user sharing the function result or error. If you do not respond with additional message with function result, user will not know you successfully executed the tool. Speak and respond in the language of the user.",
+                instructions: systemPrompt,
                 tool_choice: "auto",
             }),
         });
