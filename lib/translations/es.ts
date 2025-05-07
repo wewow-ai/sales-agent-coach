@@ -1,3 +1,5 @@
+import { log } from "console";
+
 export const es = {
   broadcast: {
     end: "Finalizar Transmisión",
@@ -12,6 +14,8 @@ export const es = {
     beta: "Beta",
     dark: "Oscuro",
     github: "Estrella en GitHub",
+    login: "Iniciar Sesión",
+    logout: "Cerrar Sesión",
     language: "Idioma",
     light: "Claro",
     logo: "OpenAI Realtime Starter",

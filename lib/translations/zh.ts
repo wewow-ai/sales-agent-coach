@@ -12,6 +12,8 @@ export const zh = {
         beta: "测试版",
         dark: "深色",
         github: "在 GitHub 上标星",
+        login: "登录",
+        logout: "登出",
         language: "语言",
         light: "浅色",
         logo: "OpenAI 实时启动器",

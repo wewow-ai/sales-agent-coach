@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import { Geist } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/header'
@@ -8,6 +7,7 @@ import { siteConfig } from '@/config/site'
 import { Toaster } from '@/components/ui/sonner'
 import { Analytics } from '@vercel/analytics/react'
 import { TranslationsProvider } from '@/components/translations-context'
+import SessionWrapper from '@/components/SessionWrapper' // Import the client-side wrapper
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -68,22 +68,24 @@ export default function RootLayout({
                     geistSans.variable
                 )}
             >
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="dark"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    <TranslationsProvider>
-                        <div className="relative flex min-h-dvh flex-col bg-background items-center">
-                            <Header />{' '}
-                            <main className="flex flex-1 justify-center items-start">
-                                {children}
-                            </main>
-                        </div>
-                        <Toaster />
-                    </TranslationsProvider>
-                </ThemeProvider>
+                <SessionWrapper>
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="dark"
+                        enableSystem
+                        disableTransitionOnChange
+                    >
+                        <TranslationsProvider>
+                            <div className="relative flex min-h-dvh flex-col bg-background items-center">
+                                <Header />{' '}
+                                <main className="flex flex-1 justify-center items-start">
+                                    {children}
+                                </main>
+                            </div>
+                            <Toaster />
+                        </TranslationsProvider>
+                    </ThemeProvider>
+                </SessionWrapper>
                 <Analytics />
             </body>
         </html>

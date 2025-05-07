@@ -12,6 +12,8 @@ export const fr = {
         beta: "Bêta",
         dark: "Sombre",
         github: "Étoile sur GitHub",
+        login: "Connexion",
+        logout: "Déconnexion",
         language: "Langue",
         light: "Clair",
         logo: "OpenAI Realtime Starter",

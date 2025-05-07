@@ -10,9 +10,11 @@ import { StarIcon } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { useTranslations } from '@/components/translations-context'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 export function Header() {
     const { t } = useTranslations()
+    const { data: session, status } = useSession()
     return (
         <motion.header
             initial={{ y: -20, opacity: 0 }}
@@ -53,6 +55,27 @@ export function Header() {
                     className="flex gap-3 items-center justify-end ml-auto"
                 >
                     <LanguageSwitcher />
+                    {status === 'loading' ? (
+                        <p>Loading...</p>
+                    ) : !session ? (
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            className="flex gap-3 items-center"
+                            onClick={() => signIn()} // Trigger login with next-auth
+                        >
+                            {t('header.login')}
+                        </Button>
+                    ) : (
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            className="flex gap-3 items-center"
+                            onClick={() => signOut()} // Trigger logout with next-auth
+                        >
+                            {t('header.logout')}
+                        </Button>
+                    )}
                     <Link
                         href={siteConfig.links.github}
                         target="_blank"
