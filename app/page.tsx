@@ -1,6 +1,8 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import useWebRTCAudioSession from '@/hooks/use-webrtc'
 import { tools } from '@/lib/tools'
 import { Welcome } from '@/components/welcome'
@@ -15,6 +17,18 @@ import { motion } from 'framer-motion'
 import { useToolsFunctions } from '@/hooks/use-tools'
 
 const App: React.FC = () => {
+    // Get session to check authentication
+    const { data: session, status: sessionStatus } = useSession()
+    const router = useRouter()
+
+    // If the session is loading or there is no session, redirect to login
+    useEffect(() => {
+        if (sessionStatus === 'loading') return // Don't redirect while checking session
+        if (!session) {
+            router.push('/auth/signin') // Redirect to login if no session
+        }
+    }, [session, sessionStatus, router])
+
     // State for voice selection
     const [voice, setVoice] = useState('ash')
 
