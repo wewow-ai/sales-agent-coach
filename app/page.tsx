@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import useWebRTCAudioSession from '@/hooks/use-webrtc'
 import { tools } from '@/lib/tools'
 import { Welcome } from '@/components/welcome'

@@ -5,13 +5,13 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 export default function SignInPage() {
-    const [csrfToken, setCsrfToken] = useState<string | undefined>()
+    const [csrfToken, setCsrfToken] = useState<string>('') // Set initial value to an empty string
     const { data: session, status } = useSession() // Hook to manage session state
     const router = useRouter()
 
     // Fetch CSRF token when the page loads
     useEffect(() => {
-        getCsrfToken().then((token) => setCsrfToken(token ?? undefined))
+        getCsrfToken().then((token) => setCsrfToken(token ?? '')) // Ensure token is never undefined
     }, [])
 
     // Redirect user if authenticated
