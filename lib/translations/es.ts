@@ -13,7 +13,6 @@ export const es = {
     bannerLink: "Saber más →",
     beta: "Beta",
     dark: "Oscuro",
-    github: "Estrella en GitHub",
     login: "Iniciar Sesión",
     logout: "Cerrar Sesión",
     language: "Idioma",

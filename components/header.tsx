@@ -76,29 +76,6 @@ export function Header() {
                             {t('header.logout')}
                         </Button>
                     )}
-                    <Link
-                        href={siteConfig.links.github}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        aria-label="Give a star on GitHub"
-                    >
-                        <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                className="flex gap-3 items-center max-md:h-9 max-md:w-9 max-md:px-0"
-                                aria-label="Give a star on GitHub"
-                            >
-                                <span className="hidden md:block">
-                                    {t('header.github')}
-                                </span>{' '}
-                                <StarIcon className="motion-preset-spin motion-loop-twice" />
-                            </Button>
-                        </motion.div>
-                    </Link>
                     <ThemeSwitcher />
                 </motion.div>
             </div>

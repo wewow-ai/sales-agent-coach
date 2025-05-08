@@ -11,7 +11,6 @@ export const fr = {
         bannerLink: "En savoir plus →",
         beta: "Bêta",
         dark: "Sombre",
-        github: "Étoile sur GitHub",
         login: "Connexion",
         logout: "Déconnexion",
         language: "Langue",

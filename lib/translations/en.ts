@@ -11,7 +11,6 @@ export const en = {
         bannerLink: "Learn more →",
         beta: "Beta",
         dark: "Dark",
-        github: "Star on GitHub",
         login: "Login",
         logout: "Logout",
         language: "Language",
