@@ -12,18 +12,18 @@ datasource db {
 
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?   // removed @db.Text
-  access_token       String?   // removed @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?   // removed @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id])
 
@@ -46,16 +46,43 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  role          Role      @default(SALES_AGENT)
 
-  accounts Account[]
-  sessions Session[]
+  accounts      Account[]
+  sessions      Session[]
+  scenarios     Scenario[] @relation("CreatedScenarios")
+  recordings    Recording[]
 }
 
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
-
-  @@unique([identifier, token]) // This is enough for NextAuth
+enum Role {
+  ADMIN
+  TEAM_LEAD
+  SALES_AGENT
 }
 
+model Scenario {
+  id          String     @id @default(cuid())
+  title       String
+  description String
+  transcript  String
+  breakdown   String
+
+  createdBy   User       @relation("CreatedScenarios", fields: [createdById], references: [id])
+  createdById String
+
+  recordings  Recording[]
+  createdAt   DateTime   @default(now())
+}
+
+model Recording {
+  id          String    @id @default(cuid())
+  scenario    Scenario  @relation(fields: [scenarioId], references: [id])
+  scenarioId  String
+
+  agent       User      @relation(fields: [agentId], references: [id])
+  agentId     String
+
+  createdAt   DateTime  @default(now())
+  audioUrl    String?
+  feedback    String?
+}

@@ -1,7 +1,6 @@
-// auth/config.ts
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
-import type { NextAuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 
 export const authConfig: NextAuthOptions = {
@@ -22,5 +21,16 @@ export const authConfig: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/auth/signin",
+  },
+  callbacks: {
+    async signIn({ email, account }) {
+      console.log(`Magic link sent to ${email}`);
+      return true;
+    },
+    async session({ session, user }) {
+      // Ensure user's role is added to the session object
+      session.user.role = user.role;
+      return session;
+    },
   },
 };

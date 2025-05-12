@@ -1,3 +1,4 @@
+// app/auth/signin/page.tsx
 'use client'
 
 import { getCsrfToken, useSession } from 'next-auth/react'

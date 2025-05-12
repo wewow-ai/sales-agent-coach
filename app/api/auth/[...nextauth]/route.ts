@@ -1,3 +1,4 @@
+// app/api/auth/[...nextauth]/route.ts
 import NextAuth from "next-auth"
 import EmailProvider from "next-auth/providers/email"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
@@ -26,6 +27,11 @@ const handler = NextAuth({
     async signIn({ email, account }) {
       console.log(`Magic link sent to ${email}`);
       return true;
+    },
+    async session({ session, user }) {
+      // Add the user's role to the session object
+      session.user.role = user.role;
+      return session;
     },
   },
 });
