@@ -4,12 +4,12 @@ export function useRole() {
   const { data: session } = useSession();
   console.log(session); // Log session to verify role
 
-  const role = session?.user?.role as 'admin' | 'team_lead' | 'agent' | undefined;
+  const role = session?.user?.role as 'ADMIN' | 'TEAM_LEAD' | 'AGENT' | undefined;
 
   return {
-    isAdmin: role === 'admin',
-    isTeamLead: role === 'team_lead',
-    isAgent: role === 'agent',
+    isAdmin: role === 'ADMIN',
+    isTeamLead: role === 'TEAM_LEAD',
+    isAgent: role === 'AGENT',
     role,
   };
 }
