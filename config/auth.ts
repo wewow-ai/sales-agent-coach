@@ -30,6 +30,7 @@ export const authConfig: NextAuthOptions = {
     async session({ session, user }) {
       // Ensure user's role is added to the session object
       session.user.role = user.role;
+      session.user.id = user.id;
       return session;
     },
   },

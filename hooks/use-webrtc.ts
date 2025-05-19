@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Conversation } from "@/lib/conversations";
 import { useTranslations } from "@/components/translations-context";
+import { saveRecording } from "@/lib/recording";
 
 export interface Tool {
   name: string;
@@ -464,7 +465,18 @@ export default function useWebRTCAudioSession(
   /**
    * Stop the session & cleanup
    */
-  function stopSession() {
+  async function stopSession() {
+    const scenarioId = "cmamkkw3q0009hdt9zjt6whkr"; // get this from context or props
+
+    const transcript = conversation.map((msg) => ({
+      role: msg.role,
+      text: msg.text,
+      timestamp: msg.timestamp,
+    }));
+    console.log("transcript", transcript);
+
+    await saveRecording({ scenarioId, transcript });
+
     if (dataChannelRef.current) {
       dataChannelRef.current.close();
       dataChannelRef.current = null;
