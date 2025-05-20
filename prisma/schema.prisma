@@ -1,15 +1,12 @@
-
 generator client {
   provider = "prisma-client-js"
-  output   = "./node_modules/@prisma/client"
+  output   = "../node_modules/.prisma/client"
 }
-
 
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
-
 
 model Account {
   id                String  @id @default(cuid())
@@ -29,7 +26,6 @@ model Account {
 
   @@unique([provider, providerAccountId])
 }
-
 
 model Session {
   id           String   @id @default(cuid())
@@ -85,4 +81,15 @@ model Recording {
   createdAt   DateTime  @default(now())
   audioUrl    String?
   feedback    String?
+  transcript  Json?
+
+}
+
+model VerificationToken {
+  id         String   @id @default(cuid())
+  token      String
+  identifier String
+  expires    DateTime
+
+  @@unique([identifier, token]) 
 }
