@@ -4,10 +4,12 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useTranslations } from "@/components/translations-context";
 
 export default function AdminDashboardPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const { t } = useTranslations();
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -16,22 +18,24 @@ export default function AdminDashboardPage() {
   }, [status, router]);
 
   if (status === "loading") {
-    return <div className="p-8">Loading...</div>;
+    return <div className="p-8">{t("common.loading")}</div>;
   }
+
+  const role = session?.user?.role;
+  const canSeeStats = role === "ADMIN" || role === "TEAM_LEAD";
 
   return (
     <main className="max-w-4xl mx-auto py-12 px-6">
-      <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+      <h1 className="text-2xl font-bold mb-6">{t("admin.title")}</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <Link
           href="/admin/scenarios"
           className="block p-6 border rounded shadow hover:bg-gray-50"
         >
-          <h2 className="text-lg font-semibold">Manage Scenarios</h2>
+          <h2 className="text-lg font-semibold">{t("admin.scenariosTitle")}</h2>
           <p className="text-sm text-gray-600">
-            Add, edit or remove training scenarios with transcripts and
-            breakdowns.
+            {t("admin.scenariosDescription")}
           </p>
         </Link>
 
@@ -39,10 +43,9 @@ export default function AdminDashboardPage() {
           href="/admin/recordings"
           className="block p-6 border rounded shadow hover:bg-gray-50"
         >
-          <h2 className="text-lg font-semibold">Agent Sessions</h2>
+          <h2 className="text-lg font-semibold">{t("admin.sessionsTitle")}</h2>
           <p className="text-sm text-gray-600">
-            View sessions submitted by sales agents, including feedback and
-            stats.
+            {t("admin.sessionsDescription")}
           </p>
         </Link>
 
@@ -50,11 +53,21 @@ export default function AdminDashboardPage() {
           href="/admin/users"
           className="block p-6 border rounded shadow hover:bg-gray-50"
         >
-          <h2 className="text-lg font-semibold">User Management</h2>
-          <p className="text-sm text-gray-600">
-            Review team leads and sales agents. Permissions by role.
-          </p>
+          <h2 className="text-lg font-semibold">{t("admin.usersTitle")}</h2>
+          <p className="text-sm text-gray-600">{t("admin.usersDescription")}</p>
         </Link>
+
+        {canSeeStats && (
+          <Link
+            href="/admin/statistics"
+            className="block p-6 border rounded shadow hover:bg-gray-50"
+          >
+            <h2 className="text-lg font-semibold">{t("admin.statsTitle")}</h2>
+            <p className="text-sm text-gray-600">
+              {t("admin.statsDescription")}
+            </p>
+          </Link>
+        )}
       </div>
     </main>
   );

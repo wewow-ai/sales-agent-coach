@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useTranslations } from "@/components/translations-context";
 
 type Recording = {
   id: string;
@@ -17,6 +18,7 @@ export default function RecordingDetailPage() {
   const router = useRouter();
   const [recording, setRecording] = useState<Recording | null>(null);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslations();
 
   useEffect(() => {
     if (!id || typeof id !== "string") return;
@@ -34,21 +36,22 @@ export default function RecordingDetailPage() {
       .finally(() => setLoading(false));
   }, [id, router]);
 
-  if (loading) return <div className="p-6">Loading...</div>;
+  if (loading) return <div className="p-6">{t("common.loading")}</div>;
   if (!recording) return null;
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Recording Details</h1>
+      <h1 className="text-2xl font-bold mb-4">{t("recording.title")}</h1>
 
       <p>
-        <strong>Agent:</strong> {recording.agent.name || recording.agent.email}
+        <strong>{t("recording.agent")}:</strong>{" "}
+        {recording.agent.name || recording.agent.email}
       </p>
       <p>
-        <strong>Scenario:</strong> {recording.scenario.title}
+        <strong>{t("recording.scenario")}:</strong> {recording.scenario.title}
       </p>
       <p>
-        <strong>Created At:</strong>{" "}
+        <strong>{t("recording.createdAt")}:</strong>{" "}
         {new Date(recording.createdAt).toLocaleString()}
       </p>
 
@@ -62,7 +65,9 @@ export default function RecordingDetailPage() {
 
       {recording.transcript && (
         <div className="mt-6 bg-gray-50 p-4 rounded">
-          <h2 className="text-lg font-semibold mb-2">Transcript</h2>
+          <h2 className="text-lg font-semibold mb-2">
+            {t("recording.transcript")}
+          </h2>
           <div className="whitespace-pre-wrap text-sm">
             {recording.transcript.map((msg, idx) => (
               <p key={idx}>

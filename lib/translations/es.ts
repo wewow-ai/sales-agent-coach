@@ -1,6 +1,20 @@
 import { log } from "console";
 
 export const es = {
+  admin: {
+    title: "Panel de Administración",
+    scenariosTitle: "Gestionar Escenarios",
+    scenariosDescription: "Agregar, editar o eliminar escenarios de capacitación con transcripciones y desglose.",
+    sessionsTitle: "Sesiones de Agentes",
+    sessionsDescription: "Ver sesiones enviadas por agentes de ventas, incluyendo comentarios y estadísticas.",
+    usersTitle: "Gestión de Usuarios",
+    usersDescription: "Revisar líderes de equipo y agentes de ventas. Permisos por rol.",
+    statsTitle: "Estadísticas",
+    statsDescription: "Ver tendencias de grabación e información sobre la actividad del usuario."
+  },
+  common: {
+    loading: "Cargando..."
+  },
   broadcast: {
     end: "Finalizar Transmisión",
     live: "En Vivo",
@@ -38,6 +52,25 @@ export const es = {
     search: "Buscar mensajes...",
     type: "Tipo",
     view: "Ver Registros"
+  },
+  recording: {
+    title: "Detalles de la Grabación",
+    agent: "Agente",
+    scenario: "Escenario",
+    createdAt: "Creado En",
+    transcript: "Transcripción"
+  },
+  scenarios: {
+    title: "Escenarios",
+    description: "Agregar, editar o eliminar escenarios de capacitación con transcripciones y desglose.",
+    new: "+ Nuevo Escenario",
+    id: "ID:",
+    by: "Por",
+    unknown: "Desconocido",
+    edit: "Editar",
+    delete: "Eliminar",
+    confirmDelete: "¿Estás seguro de que deseas eliminar este escenario?",
+    deleteFailed: "Error al eliminar el escenario.",
   },
   status: {
     error: "¡Ups!",

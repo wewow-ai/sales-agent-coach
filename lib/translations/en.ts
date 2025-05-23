@@ -1,4 +1,20 @@
+import { title } from "process";
+
 export const en = {
+    admin: {
+        title: "Admin Dashboard",
+        scenariosTitle: "Manage Scenarios",
+        scenariosDescription: "Add, edit or remove training scenarios with transcripts and breakdowns.",
+        sessionsTitle: "Agent Sessions",    
+        sessionsDescription: "View sessions submitted by sales agents, including feedback and stats.",
+        usersTitle: "User Management",
+        usersDescription: "Review team leads and sales agents. Permissions by role.",
+        statsTitle: "Statistics",
+        statsDescription: "View recording trends and user activity insights.",
+    },
+    common: {
+        loading: "Loading..."
+    },
     broadcast: {
         end: "End Broadcasting",
         live: "Live",
@@ -35,6 +51,25 @@ export const en = {
         search: "Search messages...",
         type: "Type",
         view: "View Logs"
+    },
+    recording: {
+        title: "Recording Details",
+        agent: "Agent",
+        scenario: "Scenario",
+        createdAt: "Created At",
+        transcript: "Transcript"
+    },
+    scenarios: {
+        title: "Scenarios",
+        description: "View, edit, and manage customer service scenarios.",
+        new: "+ New Scenario",
+        id: "ID:",
+        by: "By",
+        unknown: "Unknown",
+        edit: "Edit",
+        delete: "Delete",
+        confirmDelete: "Are you sure you want to delete this scenario?",
+        deleteFailed: "Failed to delete scenario.",
     },
     status: {
         error: "Whoops!",

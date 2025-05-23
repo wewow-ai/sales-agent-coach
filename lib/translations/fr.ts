@@ -1,4 +1,21 @@
+import { title } from "process";
+import { unknown } from "zod";
+
 export const fr = {
+    admin: {
+        title: "Tableau de bord Admin",
+        scenariosTitle: "Gérer les Scénarios",
+        scenariosDescription: "Ajouter, modifier ou supprimer des scénarios de formation avec transcriptions et analyses.",
+        sessionsTitle: "Sessions des Agents",
+        sessionsDescription: "Voir les sessions soumises par les agents de vente, y compris les retours et les statistiques.",
+        usersTitle: "Gestion des Utilisateurs",
+        usersDescription: "Examiner les chefs d'équipe et les agents de vente. Permissions par rôle.",
+        statsTitle: "Statistiques",
+        statsDescription: "Voir les tendances d'enregistrement et les informations sur l'activité des utilisateurs."
+    },
+    common: {
+        loading: "Chargement..."
+    },
     broadcast: {
         end: "Arrêter la Diffusion",
         live: "En Direct",
@@ -35,6 +52,25 @@ export const fr = {
         search: "Rechercher des messages...",
         type: "Type",
         view: "Voir les Journaux"
+    },
+    recording: {
+        title: "Détails de l'Enregistrement",
+        agent: "Agent",
+        scenario: "Scénario",
+        createdAt: "Créé le",
+        transcript: "Transcription"
+    },
+    scenarios: {
+        title: "Scénario",
+        description: "Description",
+        new: "Nouveau Scénario",
+        id: "ID :",
+        by: "Par",
+        unknown: "Inconnu",
+        edit: "Modifier",
+        delete: "Supprimer",
+        confirmDelete: "Êtes-vous sûr de vouloir supprimer ce scénario ?",
+        deleteFailed: "Échec de la suppression du scénario",
     },
     status: {
         error: "Oups !",

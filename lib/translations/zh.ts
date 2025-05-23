@@ -1,4 +1,17 @@
+import { unknown } from "zod";
+
 export const zh = {
+    admin: {
+        scenariosTitle: "场景",
+        scenariosDescription: "添加、编辑或删除带有转录和分解的培训场景。",
+        sessionsTitle: "代理会话",
+        sessionsDescription: "查看销售代理提交的会话，包括反馈和统计信息。",
+        usersTitle: "用户管理",
+        usersDescription: "查看团队负责人和销售代理。按角色分配权限。",
+        statsTitle: "统计信息",
+        statsDescription: "查看录音趋势和用户活动洞察。",
+        title: "管理仪表盘"
+    },
     broadcast: {
         end: "结束广播",
         live: "直播中",
@@ -35,6 +48,25 @@ export const zh = {
         search: "搜索消息...",
         type: "类型",
         view: "查看日志"
+    },
+    recording: {
+        title: "录音详情",
+        agent: "代理",
+        scenario: "场景",
+        createdAt: "创建于",
+        transcript: "转录"
+    },
+    scenarios: {
+        title: "场景",
+        description: "场景描述",
+        new: "新建场景",
+        id: "场景 ID",
+        by: "创建者",
+        unknown: "未知",
+        edit: "编辑",
+        delete: "删除",
+        confirmDelete: "您确定要删除此场景吗？",
+        deleteFailed: "删除场景失败",
     },
     status: {
         error: "哎呀！",
