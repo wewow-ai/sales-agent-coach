@@ -11,6 +11,7 @@ type Recording = {
   transcript?: { role: string; text: string }[];
   agent: { name?: string; email: string };
   scenario: { title: string };
+  feedback?: string | null;
 };
 
 export default function RecordingDetailPage() {
@@ -75,6 +76,14 @@ export default function RecordingDetailPage() {
               </p>
             ))}
           </div>
+        </div>
+      )}
+      {recording.feedback && (
+        <div className="mt-6 bg-blue-50 p-4 rounded">
+          <h2 className="text-lg font-semibold mb-2">
+            {t("recording.feedback")}
+          </h2>
+          <p className="whitespace-pre-wrap text-sm">{recording.feedback}</p>
         </div>
       )}
     </div>

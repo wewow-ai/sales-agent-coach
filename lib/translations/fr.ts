@@ -62,7 +62,7 @@ export const fr = {
     },
     scenarios: {
         title: "Scénario",
-        description: "Description",
+        description: "Ajouter, modifier ou supprimer des scénarios de formation avec transcriptions et analyses.",
         new: "Nouveau Scénario",
         id: "ID :",
         by: "Par",

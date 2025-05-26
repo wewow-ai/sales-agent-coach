@@ -1,8 +1,9 @@
 // app/api/recordings/new/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authConfig } from '@/config/auth'; // Path to your NextAuth config
+import { authConfig } from '@/config/auth';
 import { prisma } from '@/lib/prisma';
+import { generateFeedback } from '@/lib/openai'; // 👈 Add this
 
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authConfig);
@@ -20,12 +21,14 @@ export async function POST(req: NextRequest) {
     if (!scenarioId || !Array.isArray(transcript)) {
       return NextResponse.json({ message: 'Missing or invalid data' }, { status: 400 });
     }
+    const feedback = await generateFeedback(transcript); // 👈 Generate feedback
 
     const recording = await prisma.recording.create({
       data: {
         scenarioId,
         agentId,
-        transcript, // ✅ saved as structured JSON
+        transcript,
+        feedback,
       },
     });
 

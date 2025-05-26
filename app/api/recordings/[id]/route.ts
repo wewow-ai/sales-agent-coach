@@ -9,8 +9,17 @@ export async function GET(
     const recording = await prisma.recording.findUnique({
       where: { id: params.id },
       include: {
-        agent: true,
-        scenario: true,
+        agent: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+        scenario: {
+          select: {
+            title: true,
+          },
+        },
       },
     });
 
@@ -18,7 +27,15 @@ export async function GET(
       return NextResponse.json({ message: 'Not found' }, { status: 404 });
     }
 
-    return NextResponse.json(recording);
+    return NextResponse.json({
+      id: recording.id,
+      createdAt: recording.createdAt,
+      audioUrl: recording.audioUrl ?? null,
+      transcript: recording.transcript ?? [],
+      feedback: recording.feedback ?? null,
+      agent: recording.agent,
+      scenario: recording.scenario,
+    });
   } catch (error) {
     console.error('Error fetching recording:', error);
     return NextResponse.json({ message: 'Error' }, { status: 500 });
