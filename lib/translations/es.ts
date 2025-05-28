@@ -58,7 +58,8 @@ export const es = {
     agent: "Agente",
     scenario: "Escenario",
     createdAt: "Creado En",
-    transcript: "Transcripción"
+    transcript: "Transcripción",
+    feedback: "Comentarios",
   },
   scenarios: {
     title: "Escenarios",

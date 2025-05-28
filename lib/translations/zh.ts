@@ -54,7 +54,8 @@ export const zh = {
         agent: "代理",
         scenario: "场景",
         createdAt: "创建于",
-        transcript: "转录"
+        transcript: "转录",
+        feedback: "反馈",
     },
     scenarios: {
         title: "场景",
