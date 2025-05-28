@@ -15,6 +15,20 @@ import { ToolsEducation } from "@/components/tools-education";
 import { TextInput } from "@/components/text-input";
 import { motion } from "framer-motion";
 import { useToolsFunctions } from "@/hooks/use-tools";
+import { ScriptSelector } from "@/components/script-select"; // Import the new ScriptSelector
+
+interface Scenario {
+  id: string;
+  title: string;
+  description: string;
+  transcript: string;
+  breakdown: string;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: {
+    name: string;
+  };
+}
 
 const App: React.FC = () => {
   // Get session to check authentication
@@ -31,8 +45,35 @@ const App: React.FC = () => {
 
   // State for voice selection
   const [voice, setVoice] = useState("ash");
+  // State for script selection
+  const [selectedScript, setSelectedScript] = useState<string | null>(null);
+  // State for available scripts
+  const [scripts, setScripts] = useState<Scenario[]>([]);
+
+  // Fetch scripts from the API
+  useEffect(() => {
+    const fetchScripts = async () => {
+      try {
+        const res = await fetch("/api/admin/scenarios");
+        if (res.ok) {
+          const data: Scenario[] = await res.json();
+          setScripts(data);
+          // Optionally set the first script as default
+          if (data.length > 0) {
+            setSelectedScript(data[0].id);
+          }
+        } else {
+          console.error("Failed to fetch scripts:", res.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching scripts:", error);
+      }
+    };
+    fetchScripts();
+  }, []);
 
   // WebRTC Audio Session Hook
+  // You might want to pass selectedScript to useWebRTCAudioSession if it needs it
   const {
     status,
     isSessionActive,
@@ -41,7 +82,7 @@ const App: React.FC = () => {
     msgs,
     conversation,
     sendTextMessage,
-  } = useWebRTCAudioSession(voice, tools);
+  } = useWebRTCAudioSession(voice, tools); // Consider adding selectedScript here
 
   // Get all tools functions
   const toolsFunctions = useToolsFunctions();
@@ -79,6 +120,15 @@ const App: React.FC = () => {
           transition={{ delay: 0.2, duration: 0.4 }}
         >
           <VoiceSelector value={voice} onValueChange={setVoice} />
+
+          {/* New Script Selector */}
+          {scripts.length > 0 && selectedScript !== null && (
+            <ScriptSelector
+              value={selectedScript}
+              onValueChange={setSelectedScript}
+              scripts={scripts}
+            />
+          )}
 
           <div className="flex flex-col items-center gap-4">
             <BroadcastButton
