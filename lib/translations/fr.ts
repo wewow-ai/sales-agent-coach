@@ -150,6 +150,10 @@ export const fr = {
         sage: "Sage - Autoritaire et Calme",
         verse: "Verse - Dynamique et Expressive"
     },
+    script: {
+        select: "Sélectionner un Scénario",
+        selectPlaceholder: "Sélectionnez un scénario pour commencer",
+    },
     language: "Français",
     languagePrompt: "Parlez et répondez uniquement en français. Il est crucial que vous mainteniez vos réponses en français. Si l'utilisateur parle dans d'autres langues, vous devriez toujours répondre en français. (French only)"
 }

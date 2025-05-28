@@ -146,6 +146,11 @@ export const zh = {
         sage: "Sage - 权威平静",
         verse: "Verse - 富有表现力"
     },
+    script: {
+        select: "选择脚本",
+        selectPlaceholder: "选择一个脚本",
+
+    },
     language: "Chinese",
     languagePrompt: "只用中文说话和回答。你一定要保持你的回答是中文的。如果用户说其他语言，你应该用中文回答。（Speak Chinese only）"
 }

@@ -150,6 +150,10 @@ export const en = {
         sage: "Sage - Authoritative & Calm",
         verse: "Verse - Dynamic & Expressive"
     },
+    script: {
+        select: "Select Script",
+        selectPlaceholder: "Choose a script"
+    },
     language: "English",
     languagePrompt: "Speak and respond only in English. It is crucial that you maintain your responses in English. If the user speaks in other languages, you should still respond in English."
 }
