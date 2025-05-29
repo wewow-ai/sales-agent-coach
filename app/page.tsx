@@ -82,7 +82,7 @@ const App: React.FC = () => {
     msgs,
     conversation,
     sendTextMessage,
-  } = useWebRTCAudioSession(voice, tools); // Consider adding selectedScript here
+  } = useWebRTCAudioSession(voice, selectedScript, tools); // Consider adding selectedScript here
 
   // Get all tools functions
   const toolsFunctions = useToolsFunctions();

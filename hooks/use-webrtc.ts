@@ -36,6 +36,7 @@ interface UseWebRTCAudioSessionReturn {
  */
 export default function useWebRTCAudioSession(
   voice: string,
+  scenarioId: string | null, // <-- Add scenarioId here
   tools?: Tool[],
 ): UseWebRTCAudioSessionReturn {
   const { t, locale } = useTranslations();
@@ -459,7 +460,7 @@ export default function useWebRTCAudioSession(
     } catch (err) {
       console.error("startSession error:", err);
       setStatus(`Error: ${err}`);
-      stopSession();
+      stopSession(); // Call stopSession to clean up even if start fails
     }
   }
 
@@ -467,16 +468,6 @@ export default function useWebRTCAudioSession(
    * Stop the session & cleanup
    */
   async function stopSession() {
-    const scenarioId = "cmamkkw3q0009hdt9zjt6whkr"; // get this from context or props
-
-    const transcript = conversation.map((msg) => ({
-      role: msg.role,
-      text: msg.text,
-      timestamp: msg.timestamp,
-    }));
-    console.log("transcript", transcript);
-
-    await saveRecording({ scenarioId, transcript });
 
     if (dataChannelRef.current) {
       dataChannelRef.current.close();
@@ -509,6 +500,18 @@ export default function useWebRTCAudioSession(
     setIsSessionActive(false);
     setStatus("Session stopped");
     setMsgs([]);
+    if (scenarioId) {
+        const transcript = conversation.map((msg) => ({
+            role: msg.role,
+            text: msg.text,
+            timestamp: msg.timestamp,
+        }));
+        console.log("Transcript for scenario:", scenarioId, transcript);
+
+        await saveRecording({ scenarioId, transcript });
+    } else {
+        console.warn("No scenarioId provided for saving the recording.");
+    }
     setConversation([]);
   }
 
