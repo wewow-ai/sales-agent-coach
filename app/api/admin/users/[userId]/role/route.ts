@@ -16,7 +16,7 @@ export async function PATCH(req: Request, { params }: { params: { userId: string
       data: { role },
     })
     return NextResponse.json(updatedUser)
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'User not found or update failed' }, { status: 500 })
   }
 }
