@@ -508,6 +508,7 @@ export default function useWebRTCAudioSession(
         }));
         console.log("Transcript for scenario:", scenarioId, transcript);
 
+        // Ensure saveRecording is awaited here since stopSession is async
         await saveRecording({ scenarioId, transcript });
     } else {
         console.warn("No scenarioId provided for saving the recording.");
@@ -573,7 +574,11 @@ export default function useWebRTCAudioSession(
 
   // Cleanup on unmount
   useEffect(() => {
-    return () => stopSession();
+    // The cleanup function must be synchronous.
+    // Call the async stopSession function within this synchronous wrapper.
+    return () => {
+      stopSession();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

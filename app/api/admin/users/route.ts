@@ -19,10 +19,12 @@ export async function GET() {
         name: true,
         email: true,
         role: true,
+        emailVerified: true,
+        image: true,
       },
     });
 
-    return NextResponse.json(users);
+    return NextResponse.json<User[]>(users);
   } catch (error: unknown) { // Type 'error' as 'unknown' or 'Error'
     let errorMessage = 'Failed to fetch users';
     if (error instanceof Error) {
