@@ -6,11 +6,13 @@ import { Role, User } from '@prisma/client'; // Make sure to import 'User' for t
 
 export async function GET(
   req: Request,
-  { params }: { params: { userId: string } }
+  { params }: { params: Promise<{ userId: string }> } // Change: params is now a Promise
 ) {
+  const { userId } = await params; // Change: AWAIT params here!
+
   // Explicitly type the user variable
   const user: User | null = await prisma.user.findUnique({
-    where: { id: params.userId },
+    where: { id: userId }, // Use the awaited userId
     select: {
       id: true,
       name: true,
@@ -29,8 +31,9 @@ export async function GET(
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { userId: string } }
+  { params }: { params: Promise<{ userId: string }> } // Change: params is now a Promise
 ) {
+  const { userId } = await params; // Change: AWAIT params here!
   const { name, email, role } = await req.json();
 
   if (email && typeof email !== 'string') {
@@ -51,7 +54,7 @@ export async function PATCH(
     };
 
     const updatedUser: User = await prisma.user.update({ // Explicitly type updatedUser
-      where: { id: params.userId },
+      where: { id: userId }, // Use the awaited userId
       data: dataToUpdate,
       select: {
         id: true,
