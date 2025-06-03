@@ -84,7 +84,7 @@ export function Header() {
                 variant="outline"
                 size="sm"
                 className="flex gap-3 items-center"
-                onClick={() => signOut()} // Trigger logout with next-auth
+                onClick={() => signOut({ callbackUrl: "/" })} // Trigger logout with next-auth
               >
                 {t("header.logout")}
               </Button>

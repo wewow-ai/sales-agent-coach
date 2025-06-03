@@ -21,6 +21,7 @@ export const authConfig: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/auth/signin",
+    signOut: '/',
   },
   callbacks: {
     async signIn({ email, account }) {
