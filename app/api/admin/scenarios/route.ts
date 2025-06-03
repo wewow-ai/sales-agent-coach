@@ -29,7 +29,6 @@ export async function POST(req: Request) {
   if (session?.user?.role !== 'ADMIN') {
     return new NextResponse('Unauthorized', { status: 403 })
   }
-  console.log("\n\n\n\n\n\n\n", session?.user)
 
   const data = await req.json()
 
