@@ -13,7 +13,7 @@ export default function AdminDashboardPage() {
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      router.push("/auth");
+      router.push("/auth/signin");
     }
   }, [status, router]);
 
