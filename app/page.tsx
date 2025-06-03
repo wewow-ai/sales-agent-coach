@@ -54,7 +54,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchScripts = async () => {
       try {
-        const res = await fetch("/api/admin/scenarios");
+        const res = await fetch("/api/scenarios");
         if (res.ok) {
           const data: Scenario[] = await res.json();
           setScripts(data);
