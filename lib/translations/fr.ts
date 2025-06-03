@@ -1,6 +1,3 @@
-import { title } from "process";
-import { unknown } from "zod";
-
 export const fr = {
     admin: {
         title: "Tableau de bord Admin",

@@ -1,5 +1,3 @@
-import { unknown } from "zod";
-
 export const zh = {
     admin: {
         scenariosTitle: "场景",
