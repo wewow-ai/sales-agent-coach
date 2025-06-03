@@ -24,7 +24,7 @@ const handler = NextAuth({
     signIn: "/auth/signin",
   },
   callbacks: {
-    async signIn({ email, account }) {
+    async signIn({ email }) {
       console.log(`Magic link sent to ${email}`);
       return true;
     },

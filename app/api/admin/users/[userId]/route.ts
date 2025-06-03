@@ -1,14 +1,15 @@
 // app/api/admin/users/[userId]/route.ts
 
-import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma' // Update path as needed
-import { Role } from '@prisma/client'
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import { Role, User } from '@prisma/client'; // Make sure to import 'User' for typing
 
 export async function GET(
   req: Request,
   { params }: { params: { userId: string } }
 ) {
-  const user = await prisma.user.findUnique({
+  // Explicitly type the user variable
+  const user: User | null = await prisma.user.findUnique({
     where: { id: params.userId },
     select: {
       id: true,
@@ -16,51 +17,66 @@ export async function GET(
       email: true,
       role: true,
     },
-  })
+  });
 
   if (!user) {
-    return NextResponse.json({ error: 'User not found' }, { status: 404 })
+    return NextResponse.json({ error: 'User not found' }, { status: 404 });
   }
 
-  return NextResponse.json(user)
+  // Explicitly type the response to ensure consistency
+  return NextResponse.json<User>(user);
 }
 
 export async function PATCH(
   req: Request,
   { params }: { params: { userId: string } }
 ) {
-  const { name, email, role } = await req.json()
+  const { name, email, role } = await req.json();
 
   if (email && typeof email !== 'string') {
-    return NextResponse.json({ error: 'Invalid email' }, { status: 400 })
+    return NextResponse.json({ error: 'Invalid email' }, { status: 400 });
   }
 
-  if (role && !Object.values(Role).includes(role)) {
-    return NextResponse.json({ error: 'Invalid role' }, { status: 400 })
+  // Ensure 'role' is a valid Role enum value if provided
+  if (role && !Object.values(Role).includes(role as Role)) { // Cast role to Role to satisfy TypeScript
+    return NextResponse.json({ error: 'Invalid role' }, { status: 400 });
   }
 
   try {
-    const updatedUser = await prisma.user.update({
+    // Explicitly type the data object for clarity, though Prisma often infers well
+    const dataToUpdate: Partial<User> = {
+      name: name ?? undefined,
+      email: email ?? undefined,
+      role: role ?? undefined,
+    };
+
+    const updatedUser: User = await prisma.user.update({ // Explicitly type updatedUser
       where: { id: params.userId },
-      data: {
-        name: name ?? undefined,
-        email: email ?? undefined,
-        role: role ?? undefined,
-      },
+      data: dataToUpdate,
       select: {
         id: true,
         name: true,
         email: true,
         role: true,
       },
-    })
+    });
 
-    return NextResponse.json(updatedUser)
-  } catch (err: any) {
-    if (err.code === 'P2002') {
-      return NextResponse.json({ error: 'Email already in use' }, { status: 409 })
+    // Explicitly type the response
+    return NextResponse.json<User>(updatedUser);
+  } catch (err: unknown) { // Change 'err: any' to 'err: unknown' for better type safety
+    if (err && typeof err === 'object' && 'code' in err && (err as { code: string }).code === 'P2002') {
+      return NextResponse.json({ error: 'Email already in use' }, { status: 409 });
     }
 
-    return NextResponse.json({ error: 'Failed to update user' }, { status: 500 })
+    // Default error message
+    let errorMessage = 'Failed to update user';
+    if (err instanceof Error) {
+      errorMessage = err.message;
+    } else if (typeof err === 'object' && err !== null && 'message' in err && typeof (err as { message: string }).message === 'string') {
+      errorMessage = (err as { message: string }).message;
+    }
+    console.error('Error updating user:', errorMessage, err); // Log full error for debugging
+
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

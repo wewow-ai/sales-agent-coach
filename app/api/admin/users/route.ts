@@ -7,12 +7,10 @@ import { Role, User } from '@prisma/client'; // Import User type
 
 export async function GET() {
   const session = await getServerSession(authConfig);
-  // console.log('Session bla bla bla:', session); // Log session to check if role is present
 
-  // // Optional: Only allow admins - uncomment and use if desired
-  // if (!session || session.user.role !== 'ADMIN') {
-  //   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  // }
+  if (!session || session.user.role !== 'ADMIN') {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
 
   try {
     const users: User[] = await prisma.user.findMany({ // Explicitly type users as User[]
@@ -23,7 +21,6 @@ export async function GET() {
         role: true,
       },
     });
-    // console.log(users, "looging users"); // Log the users to inspect the role field
 
     return NextResponse.json(users);
   } catch (error: unknown) { // Type 'error' as 'unknown' or 'Error'
