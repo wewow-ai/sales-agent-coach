@@ -51,7 +51,7 @@ export async function POST(req: Request) {
       data: {
         name,
         email,
-        role: role ?? Role.SALES_AGENT, // Default role if not provided
+        role: role ?? Role.ADMIN, // Default role if not provided
       },
     });
 
